@@ -66,11 +66,11 @@ def main() -> None:
     logger.add(sys.stdout, level="INFO")
     from_date_str = START_DATE_STR
     to_date_str = get_to_date(from_date_str)
-    today_date = datetime.today()
+    end_date = datetime.strptime(END_DATE_STR, "%m/%d/%Y")
     with open(REPORT_NAME, "w", encoding="utf-8") as file:
         logger.info("Writing header")
         file.write(f"{FIELDS}\n")
-    while datetime.strptime(to_date_str, "%m/%d/%Y").date() <= today_date.date():
+    while datetime.strptime(to_date_str, "%m/%d/%Y").date() <= end_date.date():
         logger.info(f"Getting data for {from_date_str} to {to_date_str}")
         txn_data = get_txn_data(from_date_str, to_date_str)
         logger.info(f"Writing reports for {from_date_str} to {to_date_str}")
